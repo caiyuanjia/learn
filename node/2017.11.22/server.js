@@ -4,7 +4,8 @@ var url = require('url');
 
 http.createServer(function(request,response){
 	var pathname = url.parse(request.url).pathname;
-	console.log("Request for " + pathname + "received");
+	console.log("Request for " + pathname + " received");
+	console.log("pathname.substr(1):"+ pathname.substr(1));
 
 	fs.readFile(pathname.substr(1),function(err,data){
 		if(err){

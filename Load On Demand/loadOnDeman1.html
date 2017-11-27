@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="jquery-2.0.0.min.js"></script>
+        <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+            text-decoration: none;
+            list-style: none;
+        }
+        .layout {
+            margin: 0 auto;
+            width: 1000px;
+        }
+        .lazyload img {
+            width: 300px;
+            height: 400px;
+        }
+        .img-ct {
+            margin-left: -50px;
+            overflow: auto;
+        }
+        .item {
+            float: left;
+            margin-left: 50px;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+<div class="lazyload">
+  <div class="layout">
+    <ul class="img-ct">
+        <li class="item">
+            <a href="javascript:void(0)"><img data-img="img.jpg" src="search.png"></a>
+        </li>
+        <li class="item">
+            <a href="javascript:void(0)"><img data-img="img.jpg" src="search.png"></a>
+        </li>
+        <li class="item">
+            <a href="javascript:void(0)"><img data-img="img.jpg" src="search.png"></a>
+        </li>
+        <li class="item">
+            <a href="javascript:void(0)"><img data-img="img.jpg" src="search.png"></a>
+        </li>
+        <li class="item">
+            <a href="javascript:void(0)"><img data-img="img.jpg" src="search.png"></a>
+        </li>
+        <li class="item">
+            <a href="javascript:void(0)"><img data-img="img.jpg" src="search.png"></a>
+        </li>
+        <li class="item">
+            <a href="javascript:void(0)"><img data-img="img.jpg" src="search.png"></a>
+        </li>
+        <li class="item">
+            <a href="javascript:void(0)"><img data-img="img.jpg" src="search.png"></a>
+        </li>  
+        <li class="item">
+            <a href="javascript:void(0)"><img data-img="img.jpg" src="search.png"></a>
+        </li>
+        <li class="item">
+            <a href="javascript:void(0)"><img data-img="img.jpg" src="search.png"></a>
+        </li>
+        <li class="item">
+            <a href="javascript:void(0)"><img data-img="img.jpg" src="search.png"></a>
+        </li>
+        <li class="item">
+            <a href="javascript:void(0)"><img data-img="img.jpg" src="search.png"></a>
+        </li>          
+    </ul>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+var lazyLoad = (function(){
+    var clock;
+    
+    function init(){
+        $(window).on("scroll", function(){    //监控scroll事件
+            if (clock) {
+                clearTimeout(clock);
+            }
+            clock = setTimeout(function(){
+                checkShow();
+            }, 300);
+        })
+        checkShow();                         //显示图片
+    }
+    
+    function checkShow(){
+        $(".lazyload img").each(function(){
+            var theImg = $(this);
+            if(theImg.attr('isLoaded')){     //加载过的图片不再重复加载
+                return;
+            }
+            if(isShow(theImg)){              //加载图片
+                loadImg(theImg);
+            }
+        })
+    }
+    function isShow(theImg){
+        var scrollH = $(window).scrollTop(), //浏览器窗口顶部与文档顶部之间的距离，也就是滚动条滚动的距离
+            winH = $(window).height(),       //屏幕可视窗口大小，如果没改变窗口大小，一般不变
+            top = theImg.offset().top;       //该图片（节点）与顶部的相对偏移大小
+        if(top < winH + scrollH){            //如果滚动到未加载过的位置，就开始加载图片，否则不动
+            return true;
+        }else{
+            return false;
+        }
+    }
+    function loadImg(theImg){
+        theImg.attr('src', theImg.attr('data-img'));    //用data-img的内容替换掉src内的内容
+        theImg.attr('isLoaded', true);                  //做标记，证明已被加载
+    }
+    return {
+        init: init
+    }
+})()
+lazyLoad.init();
+</script>
+
+</body>
+</html>

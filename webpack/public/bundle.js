@@ -65,9 +65,20 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const hello = __webpack_require__(1);
+document.querySelector('#root').appendChild(hello());
+
+/***/ }),
+/* 1 */
 /***/ (function(module, exports) {
 
-document.write("webpack");
+module.exports = function(){
+	webpackTest = document.createElement('div');
+	webpackTest.textContent = "webpack test";
+	return webpackTest;
+};
 
 /***/ })
 /******/ ]);

@@ -35,40 +35,40 @@
   <div class="layout">
     <ul class="img-ct">
         <li class="item">
-            <a href="javascript:void(0)"><img data-img="img.jpg" src="search.png"></a>
+            <a href="javascript:void(0)"><img class="type1" data-img="img.jpg" src=""></a>
         </li>
         <li class="item">
-            <a href="javascript:void(0)"><img data-img="img.jpg" src="search.png"></a>
+            <a href="javascript:void(0)"><img class="type2" data-img="img.jpg" src=""></a>
         </li>
         <li class="item">
-            <a href="javascript:void(0)"><img data-img="img.jpg" src="search.png"></a>
+            <a href="javascript:void(0)"><img class="type3" data-img="img.jpg" src=""></a>
         </li>
         <li class="item">
-            <a href="javascript:void(0)"><img data-img="img.jpg" src="search.png"></a>
+            <a href="javascript:void(0)"><img class="type4" data-img="img.jpg" src=""></a>
         </li>
         <li class="item">
-            <a href="javascript:void(0)"><img data-img="img.jpg" src="search.png"></a>
+            <a href="javascript:void(0)"><img class="type1" data-img="img.jpg" src=""></a>
         </li>
         <li class="item">
-            <a href="javascript:void(0)"><img data-img="img.jpg" src="search.png"></a>
+            <a href="javascript:void(0)"><img class="type2" data-img="img.jpg" src=""></a>
         </li>
         <li class="item">
-            <a href="javascript:void(0)"><img data-img="img.jpg" src="search.png"></a>
+            <a href="javascript:void(0)"><img class="type3" data-img="img.jpg" src=""></a>
         </li>
         <li class="item">
-            <a href="javascript:void(0)"><img data-img="img.jpg" src="search.png"></a>
+            <a href="javascript:void(0)"><img class="type4" data-img="img.jpg" src=""></a>
         </li>  
         <li class="item">
-            <a href="javascript:void(0)"><img data-img="img.jpg" src="search.png"></a>
+            <a href="javascript:void(0)"><img class="type1" data-img="img.jpg" src=""></a>
         </li>
         <li class="item">
-            <a href="javascript:void(0)"><img data-img="img.jpg" src="search.png"></a>
+            <a href="javascript:void(0)"><img class="type2" data-img="img.jpg" src=""></a>
         </li>
         <li class="item">
-            <a href="javascript:void(0)"><img data-img="img.jpg" src="search.png"></a>
+            <a href="javascript:void(0)"><img class="type3" data-img="img.jpg" src=""></a>
         </li>
         <li class="item">
-            <a href="javascript:void(0)"><img data-img="img.jpg" src="search.png"></a>
+            <a href="javascript:void(0)"><img class="type4" data-img="img.jpg" src=""></a>
         </li>          
     </ul>
   </div>
@@ -81,24 +81,24 @@ var lazyLoad = (function(){
     
     function init(){
         $(window).on("scroll", function(){    //监控scroll事件
-            if (clock) {
-                clearTimeout(clock);
-            }
-            clock = setTimeout(function(){
-                checkShow();
-            }, 300);
+            checkShow();
         })
         checkShow();                         //显示图片
     }
     
     function checkShow(){
+        var count = 0;
         $(".lazyload img").each(function(){
             var theImg = $(this);
             if(theImg.attr('isLoaded')){     //加载过的图片不再重复加载
                 return;
             }
             if(isShow(theImg)){              //加载图片
-                loadImg(theImg);
+                count++;
+                times = 200 + 50 * count;
+                setTimeout(function(){
+                    loadImg(theImg)
+                },times);
             }
         })
     }
